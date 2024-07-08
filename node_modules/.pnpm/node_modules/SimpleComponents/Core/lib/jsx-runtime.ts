@@ -1,5 +1,10 @@
-export { h as jsx, h as jsxs, h as jsxDEV, h } from "./h";
+export {
+  createElement,
+  createElement as jsxs,
+  createElement as jsxDEV,
+  createElement as h,
+} from "./create-element";
 
 export { Fragment } from "./fragment";
 
-export type { JSX } from "./types";
+export type { JSXInternal as JSX } from "./jsx";

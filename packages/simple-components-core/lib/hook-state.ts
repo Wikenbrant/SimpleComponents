@@ -1,23 +1,31 @@
 import { HookState } from "./hooks";
+import type { FunctionComponent, FunctionVNode } from "./vNode";
 
-type State = {
+type GlobalHookState = {
   hooks: HookState[];
 };
 
-const globalState = new Map<Function, State>();
+const globalHookState = new Map<
+  FunctionComponent,
+  Map<number, GlobalHookState>
+>();
 
-let currentState: State | undefined;
+let currentState: GlobalHookState | undefined;
 let currentHookIndex = 0;
 
-export const setCurrentComponentState = (node: any) => {
-  if (typeof node !== "function") return;
-  let state = globalState.get(node);
+const setCurrentComponentState = (node: FunctionVNode) => {
+  let functionState = globalHookState.get(node.function);
+  if (!functionState) {
+    functionState = new Map();
+    globalHookState.set(node.function, functionState);
+  }
+  let state = functionState.get(node.id);
 
   if (!state) {
     state = {
       hooks: [],
     };
-    globalState.set(node, state);
+    functionState.set(node.id, state);
   }
 
   currentHookIndex = 0;
@@ -43,6 +51,14 @@ export const getCurrentHookState = <THookState extends HookState>():
   return state?.hooks[currentHookIndex] as THookState;
 };
 
-export const resetHookIndex = () => {
+const resetHookIndex = () => {
   currentHookIndex = 0;
+};
+
+export const renderFunctionComponent = (node: FunctionVNode, props: any) => {
+  setCurrentComponentState(node);
+  const result = node.function(props);
+  resetHookIndex();
+
+  return result;
 };

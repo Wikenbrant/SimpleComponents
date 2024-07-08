@@ -13,6 +13,11 @@ const count = signal(0);
 const List = () => {
   // const list = signal([1, 2, 3]);
   const list = useSignal([1, 2, 3]);
+
+  // setInterval(() => {
+  //   list.value = [...list.value, list.value.length + 1];
+  //   console.log("setInterval: ", list.value);
+  // }, 1000);
   return (
     <div>
       <button
@@ -23,7 +28,7 @@ const List = () => {
       >
         add
       </button>
-      <ul>{computed(() => list.value.map((i) => <li>{i}</li>))}</ul>
+      <ul>{computed(() => list.value.map((i) => <li key={i}>{i}</li>))}</ul>
       {/* <ul>
         {list.value.map((i) => (
           <li>{i}</li>
@@ -33,16 +38,32 @@ const List = () => {
   );
 };
 
+const onClick = () => {
+  count.value++;
+  console.log("onClick: ", count.value);
+};
+
 createRoot(rootElement).render(
   <>
-    {/* <div>
-      <p>hej</p>
-      <p>hej</p>
-      {{ app: true }}
-    </div>
-    <button data-count={count} onclick={() => count.value++}>
-      add
-    </button> */}
+    {1}
+    {"2"}
+    {true}
+    {{}}
+    {[
+      [1, 2],
+      [3, 4],
+    ]}
+    {/* <div>hej</div>
+    <div>
+      <button data-count={count} onClick={onClick}>
+        1: {count}
+      </button>
+      <button data-count={count} onClick={onClick}>
+        2: {count}
+      </button>
+    </div> */}
+    {/* count: {computed(() => count.value)} */}
+    <List />
     <List />
   </>
 );

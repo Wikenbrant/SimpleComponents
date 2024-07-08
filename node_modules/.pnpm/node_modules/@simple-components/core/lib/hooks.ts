@@ -1,5 +1,5 @@
 import { signal, Signal } from "./reactivity";
-import { addHookState, getCurrentHookState } from "./state";
+import { addHookState, getCurrentHookState } from "./hook-state";
 
 export type HookState = SignalHookState;
 

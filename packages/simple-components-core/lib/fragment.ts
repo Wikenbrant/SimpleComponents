@@ -1,3 +1,3 @@
-import type { FunctionalComponent } from "./types";
+import type { FunctionComponent } from "./vNode";
 
-export const Fragment: FunctionalComponent = (_, children) => children as any;
+export const Fragment: FunctionComponent = ({ children }) => children;

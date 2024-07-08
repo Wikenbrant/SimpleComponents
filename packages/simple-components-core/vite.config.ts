@@ -14,7 +14,7 @@ export default defineConfig({
       entry: {
         index: path.resolve(__dirname, "lib", "index.ts"),
         "jsx-runtime": path.resolve(__dirname, "lib", "jsx-runtime.ts"),
-        render: path.resolve(__dirname, "lib", "render.ts"),
+        render: path.resolve(__dirname, "lib", "client.ts"),
         reactivity: path.resolve(__dirname, "lib", "reactivity.ts"),
         decorators: path.resolve(__dirname, "lib", "decorators.ts"),
         hooks: path.resolve(__dirname, "lib", "hooks.ts"),
